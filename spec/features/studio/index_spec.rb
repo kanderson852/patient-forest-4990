@@ -21,6 +21,7 @@ describe 'Studio index page' do
     end
     within "#studio-#{@studio2.id}" do
       expect(page).to have_content(@movie3.title)
+      save_and_open_page
     end
   end
 end
