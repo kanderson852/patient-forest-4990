@@ -15,7 +15,7 @@ describe 'Movie show page' do
     @movie2_actor1 = ActorMovie.create!(movie: @movie2, actor: @actor1)
     @movie2_actor3 = ActorMovie.create!(movie: @movie2, actor: @actor3)
     @movie3_actor2 = ActorMovie.create!(movie: @movie3, actor: @actor2)
-    @movie1_actor1 = ActorMovie.create!(movie: @movie3, actor: @actor1)
+    @movie3_actor1 = ActorMovie.create!(movie: @movie3, actor: @actor1)
   end
 
   it 'I see the movies title, creation year, and genre' do
@@ -38,5 +38,23 @@ describe 'Movie show page' do
   it 'I see the average age of all of the movies actors' do
     visit "/movies/#{@movie1.id}"
     expect(page).to have_content("Average age of Movie Actors: 35")
+  end
+
+  it 'I do not see any actors listed that are not part of the movie' do
+    visit "/movies/#{@movie2.id}"
+    expect(page).to_not have_content(@actor2.name)
+  end
+
+  it 'I see a form to add an actor to this movie' do
+    visit "/movies/#{@movie2.id}"
+    expect(page).to have_form('Add actor to this movie')
+  end
+
+  it 'Can add an actor to the movie' do
+    visit "/movies/#{@movie2.id}"
+    fill_in 'name', with: 'Josh'
+    click_button 'Add Actor'
+    expect(current_path).to eq("/movies/#{@movie2.id}")
+    expect(page).to have_content(@actor2.name)
   end
 end
