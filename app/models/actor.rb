@@ -6,6 +6,10 @@ class Actor < ApplicationRecord
   validates_presence_of :age
 
   def self.average_age
-    average(:age)
+    average(:age).round
+  end
+
+  def self.order_by_age
+    order(age: :asc)
   end
 end

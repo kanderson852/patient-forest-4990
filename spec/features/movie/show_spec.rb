@@ -39,4 +39,4 @@ describe 'Movie show page' do
     visit "/movies/#{@movie1.id}"
     expect(page).to have_content("Average age of Movie Actors: 35")
   end
-end 
+end
