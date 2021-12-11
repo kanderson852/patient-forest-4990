@@ -5,4 +5,10 @@
 <h3>Actors in this movie:<% @actors.each do |actor| %></h3>
   <p><%= actor.name %></p>
 <% end %>
-<h3>Average age of Movie Actors: <%= @average %></h3>
+<p>Average age of Movie Actors: <%= @average %></p>
+<h3>Add actor to this movie:</h3>
+<%= form_with url: '/movies/:id', method: :patch, local: true do |form| %>
+  <%= form.label :name %>
+  <%= form.text_field :name %>
+  <%= form.submit "Add Actor" %>
+<% end %>

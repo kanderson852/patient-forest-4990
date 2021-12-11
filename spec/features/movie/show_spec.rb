@@ -47,12 +47,14 @@ describe 'Movie show page' do
 
   it 'I see a form to add an actor to this movie' do
     visit "/movies/#{@movie2.id}"
-    expect(page).to have_form('Add actor to this movie')
+    expect(page).to have_content("Add actor to this movie")
+    expect(page).to have_button('Add Actor')
   end
 
   it 'Can add an actor to the movie' do
     visit "/movies/#{@movie2.id}"
     fill_in 'name', with: 'Josh'
+    save_and_open_page
     click_button 'Add Actor'
     expect(current_path).to eq("/movies/#{@movie2.id}")
     expect(page).to have_content(@actor2.name)
