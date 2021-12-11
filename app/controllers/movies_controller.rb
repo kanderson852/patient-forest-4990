@@ -8,4 +8,5 @@ class MoviesController < ApplicationController
       @actors = @actors.update(params[:name])
     end
   end
+  
 end
